@@ -2,11 +2,20 @@ package com.naufal.myrecyclerview
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.RecyclerView
 
 class ListHeroAdapter(private val listHero: ArrayList<Hero>) :RecyclerView.Adapter<ListHeroAdapter.ListViewHolder>() {
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
+        this.onItemClickCallback = onItemClickCallback
+    }
+
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgPhoto: ImageView = itemView.findViewById(R.id.img_item_photo)
@@ -26,5 +35,14 @@ class ListHeroAdapter(private val listHero: ArrayList<Hero>) :RecyclerView.Adapt
         holder.imgPhoto.setImageResource(photo)
         holder.tvName.text = name
         holder.tvDeskripsi.text = description
+
+        holder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(listHero[holder.adapterPosition])
+        }
+    }
+    interface OnItemClickCallback {
+        fun onItemClicked(data: Hero)
     }
 }
+
+
