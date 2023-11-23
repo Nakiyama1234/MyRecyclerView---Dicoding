@@ -3,6 +3,7 @@ package com.naufal.myrecyclerview
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract.Data
+import android.view.Menu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +21,11 @@ class MainActivity : AppCompatActivity() {
         rvHeroes.setHasFixedSize(true)
         list.addAll(getListHero())
         showRecyclerList()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun getListHero(): ArrayList<Hero> {
